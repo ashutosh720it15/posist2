@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 #include<ctime>
 using namespace std;
+string hash_(string,string,string);
+ static int node_number2;
 class data
 {
 public:
@@ -20,7 +22,7 @@ public:
         this->owner_id=owner_id;
         this->value=value;
         this->owner_name=owner_name;
-        this->set_=hash_(owner_id,value,owner_name);
+        this->hash_set_=hash_(owner_id,value,owner_name);
     }
 };
 string hash_(string owner_id,string value,string owner_name)
@@ -36,28 +38,29 @@ string hash_2(time_t timestamp,data data1,int node_number)
 
 class node
 {
-
+public:
     time_t timestamp;
     data data1;
-   static int node_number;
+    int node_number;
+
     string node_id;
     node* reference_node_id;
-    vector<node*> child_refernce_id;
+    vector<node*>child_reference_id;
     node* genesis_reference_node_id;
     string hash_value;
-public:
-    node(date_ timestamp,int node_number,string node_id)
+
+    node(time_t timestamp,int node_number,string node_id)
     {
         this->timestamp=timestamp;
-        data1=new data();
-        this->node_number=node_number;
-        node_number++;
+        data1;
+        this->node_number=node_number2;
+        node_number2++;
         this->node_id=node_id;
         this->reference_node_id=NULL;
         this->genesis_reference_node_id=NULL;
-        has_value=hash_2(timestamp,data1,node_number);
+        hash_value=hash_2(timestamp,data1,node_number);
 }
-void set_data()
+void set_data()//set the data of owner of a node
 {
 
     cout<<"enter the owner_id";
@@ -76,23 +79,23 @@ void set_data()
 
 }
  friend void set_child_node(node*);
- friend void create_child_of_node(node* )
- void decryption()
+ friend void create_child_of_node(node* );
+ void decryption()//decrypting the value
  {
      cout<<this->data1.value;
  }
- void encryption()
+ void encryption()//encrypting the value
  {
      cout<<this->data1.value;
  }
- void edit_value_of_node()
+ void edit_value_of_node()//editing the value of the node
  {
      cout<<"enter the new value of the node";
      int value;
      cin>>value;
      this->data1.value=value;
  }
- void transfer_ownership()
+ void transfer_ownership()//transfering the ownership of the node
  {
      cout<<"enter the owner detail";
      string owner_id;
@@ -105,46 +108,48 @@ void set_data()
      cout<<"enter the new owner_name";
      cin>>owner_name;
      this->data1.owner_id=owner_id;
-     this->dat1.value=value;
+     this->data1.value=value;
      this->data1.owner_name=owner_name;
 
  }
- int longest_chain_of_genesis_node()
+ int longest_chain_of_genesis_node()//longest chain of the genesis node
  {
      return child_reference_id.size();
  }
- int longest_chain_of_any_node()
+ int longest_chain_of_any_node()//longest chain of the any node
  {
      return child_reference_id.size();
  }
 
 };
-void create_child_of_node(node* p1)
+void create_child_of_node(node* p1) //creating child of any node
 {
     ///time stamp node number,node id;
-    date_ timestamp;
+    time_t timestamp;
 
     string node_id;
     timestamp=time(0);
-    cout<<"enter the node id":
-        string node_id;
+    cout<<"enter the node id";
+        //string node_id;
         cin>>node_id;
-        node* p2=new node(timestamp,node_number,node_id);
+        node* p2=new node(timestamp,node_number2,node_id);
+
         cout<<"enter the value of the node";
-        int value;
-        cin>>value;
-        int limit=p1.data1.value;
-        for(int i=0;i<child_refrence_id.size();i++)
+        int value1;
+        cin>>value1;
+        int limit=stoi(p1->data1.value);
+        for(int i=0;i<p1->child_reference_id.size();i++)
         {
 
-            limit-=child_reference_id[i].data1.value;
+            //limit-=p1->child_reference_id[i].data1.value;
 
         }
 
 
-   if(value<=limit)
+   if(value1<=limit)
    {
-       child_reference_id.push_back(p2);
+       p1->child_reference_id.push_back(p2);
+       node_number2++;
 
    }
    else
@@ -153,19 +158,19 @@ void create_child_of_node(node* p1)
        cout<<"child creation not possible";
    }
 }
-void set_child(node* child_node)
+void set_child(node* child_node)//deleting the child node
 {
 
     cout<<"enter the value of the child node which has to be delete";
     int value;
     cin>>value;
-    for(int i=0;i<child_refrence_node.size();i++)
+    for(int i=0;i<child_node->child_reference_id.size();i++)
     {
 
-        if(child_reference_node[i].data1.value==value)
+        if(child_node->child_reference_id[i].data1.value==value)
         {
 
-            child_reference_node[i]=NULL;
+            child_node->child_reference_id[i]=NULL;
             break;
         }
     }
