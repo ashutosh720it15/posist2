@@ -158,31 +158,15 @@ void create_child_of_node(node* p1) //creating child of any node
        cout<<"child creation not possible";
    }
 }
-void set_child(node* child_node)//deleting the child node
-{
 
-    cout<<"enter the value of the child node which has to be delete";
-    int value;
-    cin>>value;
-    for(int i=0;i<child_node->child_reference_id.size();i++)
-    {
-
-        if(child_node->child_reference_id[i].data1.value==value)
-        {
-
-            child_node->child_reference_id[i]=NULL;
-            break;
-        }
-    }
-}
 
 int main()
 {
-int node_number=0;
+//int node_number=0;
 int node_id=0;
-    node *p1=new node(time(0),node_number,node_id);
+time_t t1=time(0);
+    node *p1=new node(t1,node_number2,to_string(node_id));
     p1->set_data();///genesis node created
-    set_child(p1);///setting the child node of node p1
 
 
 
